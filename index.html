@@ -4,22 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>LowiK</title>
-    
-    <script src="tailwindcss.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 
     <style>
-        /* [ШРИФТЫ КАК У VK / YANDEX]
-           Вместо Google Fonts используем системный стек.
-           Это гарантирует 0 мс задержки и работу в закрытых сетях.
-        */
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
             background: #020617;
-            /* Градиенты остаются, так как они рендерятся браузером, а не качаются */
-            background-image: 
+            background-image:
                 radial-gradient(at 0% 0%, #1e3a8a 0px, transparent 50%),
                 radial-gradient(at 100% 100%, #581c87 0px, transparent 50%),
-                radial-gradient(at 50% 0%, #312e81 0px, transparent 50%);
+                radial-gradient(at 50% 0%, #312e81 0px, transparent 50%),
+                radial-gradient(at 30% 80%, rgba(45, 212, 191, 0.22) 0px, transparent 45%);
             background-attachment: fixed;
             color: #f3f4f6;
             min-height: 100vh;
@@ -31,7 +26,7 @@
         }
 
         .glass, .section-block, .instruction-block {
-            border: 2px solid rgba(255, 255, 255, 0.5) !important;
+            border: 2px solid rgba(255, 255, 255, 0.45) !important;
             background: rgba(255, 255, 255, 0.08);
             backdrop-filter: blur(20px) saturate(160%);
             -webkit-backdrop-filter: blur(20px) saturate(160%);
@@ -39,12 +34,15 @@
             position: relative;
         }
 
-        button.glass {
-            background: rgba(255, 255, 255, 0.15) !important;
+        button.glass,
+        a.glass {
+            background: rgba(255, 255, 255, 0.14) !important;
             transition: all 0.2s ease;
         }
-        button.glass:hover {
-            background: rgba(255, 255, 255, 0.25) !important;
+
+        button.glass:hover,
+        a.glass:hover {
+            background: rgba(255, 255, 255, 0.24) !important;
             transform: translateY(-2px);
             border-color: #fff !important;
         }
@@ -64,7 +62,7 @@
             filter: blur(15px);
             border-radius: 50%;
             animation: rgbShift 12s linear infinite;
-            opacity: 0.8;
+            opacity: 0.75;
         }
 
         @keyframes rgbShift {
@@ -72,31 +70,58 @@
             100% { background-position: 400% 50%; }
         }
 
-        .btn-tg { 
+        .btn-tg {
             background: #0088cc !important;
-            border: 2px solid #fff !important; 
-            box-shadow: 0 0 25px rgba(0, 136, 204, 0.6); 
+            border: 2px solid #fff !important;
+            box-shadow: 0 0 25px rgba(0, 136, 204, 0.6);
             transition: 0.3s;
         }
-        .btn-tg:hover { background: #00a2f0 !important; transform: scale(1.05); }
-        
-        .btn-yt { 
+
+        .btn-yt {
             background: #ff0000 !important;
-            border: 2px solid #fff !important; 
-            box-shadow: 0 0 25px rgba(255, 0, 0, 0.6); 
+            border: 2px solid #fff !important;
+            box-shadow: 0 0 25px rgba(255, 0, 0, 0.6);
             transition: 0.3s;
         }
-        .btn-yt:hover { background: #ff4444 !important; transform: scale(1.05); }
-        
+
+        .btn-tg:hover,
+        .btn-yt:hover {
+            transform: scale(1.04);
+        }
+
+        .btn-tools {
+            background: linear-gradient(90deg, #4f46e5, #7c3aed) !important;
+            border: 2px solid rgba(255, 255, 255, 0.9) !important;
+            box-shadow: 0 0 25px rgba(99, 102, 241, 0.55);
+            transition: 0.25s;
+        }
+
+        .btn-tools:hover {
+            transform: scale(1.03);
+            filter: brightness(1.07);
+        }
+
+        .btn-tools-large {
+            display: block;
+            width: 100%;
+            padding: 16px;
+            border-radius: 1rem;
+            text-align: center;
+            text-transform: uppercase;
+            font-size: 14px;
+            font-weight: 900;
+            letter-spacing: 0.12em;
+        }
+
         .section-header {
             font-size: 0.75rem;
             font-weight: 800;
             text-transform: uppercase;
             letter-spacing: 0.15em;
             color: #f3f4f6;
-            margin: 2.5rem 0 1rem 0.5rem;
+            margin: 2.2rem 0 1rem 0.5rem;
         }
-        
+
         .falling-text {
             position: fixed;
             top: -50px;
@@ -108,7 +133,76 @@
             z-index: 0;
             opacity: 0.1;
         }
-        @keyframes fall { to { transform: translateY(110vh); } }
+
+        .bg-orb {
+            position: fixed;
+            width: 260px;
+            height: 260px;
+            border-radius: 9999px;
+            filter: blur(70px);
+            opacity: 0.22;
+            pointer-events: none;
+            z-index: 0;
+            animation: drift 18s ease-in-out infinite;
+        }
+
+        .bg-orb-1 {
+            top: 8%;
+            left: -60px;
+            background: #2563eb;
+        }
+
+        .bg-orb-2 {
+            bottom: 10%;
+            right: -80px;
+            background: #9333ea;
+            animation-delay: -7s;
+        }
+
+        @keyframes drift {
+            0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+            50% { transform: translate3d(20px, -24px, 0) scale(1.07); }
+        }
+
+        @keyframes fall {
+            to { transform: translateY(110vh); }
+        }
+
+        .price-tile {
+            border: 2px solid rgba(255, 255, 255, 0.35);
+            border-radius: 1rem;
+            padding: 1rem;
+            transition: transform 0.2s ease;
+        }
+
+        .price-tile:hover {
+            transform: translateY(-3px);
+        }
+
+        .badge-new {
+            font-size: 8px;
+            font-weight: 900;
+            background: linear-gradient(90deg, #f59e0b, #ef4444);
+            padding: 1px 6px;
+            border-radius: 9999px;
+            margin-left: 6px;
+        }
+
+        .wa-note {
+            border-left: 2px solid rgba(16, 185, 129, 0.5);
+            padding-left: 8px;
+        }
+
+        .status-warning {
+            border: 1px solid rgba(251, 191, 36, 0.45);
+            background: rgba(251, 191, 36, 0.08);
+            color: #fde68a;
+        }
+
+        .soft-divider {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.28), transparent);
+        }
     </style>
 </head>
 <body class="py-10 px-4 leading-relaxed text-sm">
@@ -117,19 +211,20 @@
     <div class="falling-text" style="left: 15%; color: #3b82f6; animation-duration: 14s; animation-delay: 2s;">Подпишись</div>
     <div class="falling-text" style="right: 5%; color: #10b981; animation-duration: 12s; animation-delay: 1s;">Подпишись</div>
     <div class="falling-text" style="right: 15%; color: #f59e0b; animation-duration: 16s; animation-delay: 4s;">Подпишись</div>
+    <div class="bg-orb bg-orb-1"></div>
+    <div class="bg-orb bg-orb-2"></div>
 
     <div class="w-full max-w-[500px] mx-auto relative z-10">
-        
         <header class="text-center mb-10">
             <div class="relative inline-block mb-4">
                 <div class="rgb-glow"></div>
-                <div class="absolute -inset-2 bg-gradient-to-r from-blue-600 to-cyan-500 rounded-full blur-xl opacity-40 animate-pulse"></div>
+                <div class="absolute -inset-2 bg-gradient-to-r from-blue-600 to-cyan-500 rounded-full blur-xl opacity-35 animate-pulse"></div>
                 <img src="avatar.png" alt="LowiK" class="avatar-safe relative z-10 border-2 border-white/40 shadow-2xl">
             </div>
-            
+
             <h1 class="text-4xl font-extrabold tracking-tighter text-white">LowiK</h1>
             <p class="text-gray-400 text-xs font-bold mt-2 uppercase tracking-[0.3em]">Official Page</p>
-    
+
             <div class="mt-5 flex justify-center">
                 <div class="glass px-5 py-3 rounded-2xl max-w-xs">
                     <p class="text-[11px] text-blue-100 font-medium leading-relaxed">
@@ -140,208 +235,191 @@
             </div>
         </header>
 
-        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-6">
-            <a href="https://t.me/LowiK_Live" target="_blank" class="btn-tg p-4 rounded-2xl text-center font-bold text-white uppercase text-[10px]">ТГ Канал</a>
-            <a href="https://t.me/LowiKForum" target="_blank" class="glass p-4 rounded-2xl text-center font-bold text-white hover:bg-white/10 transition-all uppercase text-[10px]">Наш форум</a>
-            <a href="https://www.youtube.com/@LowiKLive" target="_blank" class="btn-yt p-4 rounded-2xl text-center font-bold text-white uppercase text-[10px]">YouTube</a>
+        <div class="glass rounded-[2rem] p-4 sm:p-5 mb-7 section-block">
+            <p class="text-[10px] font-black uppercase tracking-[0.2em] text-cyan-300 text-center mb-3">Соцсети и проекты для РФ пользователей</p>
+            <a href="https://tools.lowik.watch/" target="_blank" class="btn-tools btn-tools-large mb-3">
+                LowiK Tools
+            </a>
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                <a href="https://t.me/LowiK_Live" target="_blank" class="btn-tg p-3 rounded-xl text-center font-bold text-white uppercase text-[10px]">ТГ Канал</a>
+                <a href="https://t.me/LowiKForum" target="_blank" class="glass p-3 rounded-xl text-center font-bold text-white hover:bg-white/10 transition-all uppercase text-[10px]">Форум</a>
+                <a href="https://www.youtube.com/@LowiKLive" target="_blank" class="btn-yt p-3 rounded-xl text-center font-bold text-white uppercase text-[10px]">YouTube</a>
+                <a href="https://t.me/LowiKLiveChat" target="_blank" class="glass p-3 rounded-xl text-center font-bold text-white hover:bg-white/10 transition-all uppercase text-[10px]">Чат (резерв)</a>
+            </div>
         </div>
 
         <h2 class="section-header italic flex items-center gap-2"><span class="text-green-400">Бесплатные Proxy</span> 🦾</h2>
         <div class="glass rounded-[2rem] p-6 space-y-6 section-block">
+            <div class="status-warning rounded-xl p-3 text-[10px] font-bold leading-tight">
+                Важно: в РФ прокси сейчас могут работать нестабильно. Часть может не запускаться, работать очень плохо или работать единицы. Это относится и к WhatsApp, и к ТГ прокси.
+            </div>
+            <div class="soft-divider"></div>
             <div class="space-y-4">
                 <p class="text-[10px] font-black text-green-500 uppercase italic">Для WhatsApp:</p>
-                
+
                 <div class="space-y-2">
-                    <a href="https://wa.me/proxy?host=wa.astracat.ru" target="_blank" class="block w-full py-3 rounded-xl bg-green-600 text-center font-bold text-white border-2 border-green-400 hover:bg-green-500 transition-all text-xs">
-                        📲 От AstraCat
-                    </a>
-                    <p class="text-[10px] text-gray-300 px-1 leading-tight">
-                        (просто нажми на эту ссылку и нажми на галочку и включи)
-                    </p>
+                    <a href="https://wa.me/proxy?host=wa.astracat.ru" target="_blank" class="block w-full py-3 rounded-xl bg-emerald-600 text-center font-bold text-white border-2 border-emerald-300 hover:bg-emerald-500 transition-all text-xs">От AstraCat</a>
+                    <p class="text-[10px] text-gray-300 px-1 wa-note">(нажми на ссылку и включи прокси в WhatsApp)</p>
                 </div>
 
                 <div class="space-y-2">
-                    <a href="https://wa.me/proxy?host=wa.nurvpn.de" target="_blank" class="block w-full py-3 rounded-xl bg-green-800/40 text-center font-bold text-white border-2 border-green-700 hover:bg-green-700 transition-all text-xs">
-                        🔄 Запаска New
-                    </a>
-                    <p class="text-[10px] text-gray-300 px-1">(просто нажми на эту ссылку и нажми на галочку и включи)</p>
+                    <a href="https://wa.me/proxy?host=wa.nurvpn.de" target="_blank" class="block w-full py-3 rounded-xl bg-green-700/70 text-center font-bold text-white border-2 border-green-500 hover:bg-green-600 transition-all text-xs">Запаска 1</a>
+                    <p class="text-[10px] text-gray-300 px-1 wa-note">(нажми на ссылку и включи прокси в WhatsApp)</p>
                 </div>
 
                 <div class="space-y-2">
-                    <a href="https://wa.me/proxy?host=185.4.180.231&chatPort=445" target="_blank" class="block w-full py-3 rounded-xl bg-green-600/60 text-center font-bold text-white border-2 border-green-500 hover:bg-green-500 transition-all text-xs">
-                         🟢 Прокси (Резерв 2)
-                    </a>
-                    <p class="text-[10px] text-gray-300 px-1">(просто нажми на эту ссылку и нажми на галочку и включи)</p>
+                    <a href="https://wa.me/proxy?host=185.4.180.231&chatPort=445" target="_blank" class="block w-full py-3 rounded-xl bg-teal-700/70 text-center font-bold text-white border-2 border-teal-500 hover:bg-teal-600 transition-all text-xs">Запаска 2</a>
+                    <p class="text-[10px] text-gray-300 px-1 wa-note">(нажми на ссылку и включи прокси в WhatsApp)</p>
                 </div>
 
-                <div class="p-4 bg-white/5 rounded-xl border border-white/10 text-[10px] text-gray-300 leading-tight space-y-2">
+                <div class="space-y-2">
+                    <a href="https://wa.me/proxy?host=proxy.wagram.ru" target="_blank" class="block w-full py-3 rounded-xl bg-cyan-700/70 text-center font-bold text-white border-2 border-cyan-500 hover:bg-cyan-600 transition-all text-xs">Запаска 3 <span class="badge-new">new</span></a>
+                    <p class="text-[10px] text-gray-300 px-1 wa-note">(дополнительный прокси из ветки форума)</p>
+                </div>
+
+                <div class="space-y-2">
+                    <a href="https://wa.me/proxy?host=wa.mango.cx" target="_blank" class="block w-full py-3 rounded-xl bg-emerald-700/65 text-center font-bold text-white border-2 border-emerald-500 hover:bg-emerald-600 transition-all text-xs">Запаска 4 <span class="badge-new">new</span></a>
+                    <p class="text-[10px] text-gray-300 px-1 wa-note">(дополнительный прокси из ветки форума)</p>
+                </div>
+
+                <div class="space-y-2">
+                    <a href="https://wa.me/proxy?host=wa.wagram.ru" target="_blank" class="block w-full py-3 rounded-xl bg-green-700/65 text-center font-bold text-white border-2 border-lime-400 hover:bg-green-600 transition-all text-xs">Запаска 5 <span class="badge-new">restored</span></a>
+                    <p class="text-[10px] text-gray-300 px-1 wa-note">(добавлен обратно как дополнительный WhatsApp прокси)</p>
+                </div>
+
+                <div class="space-y-2">
+                    <a href="https://wa.me/proxy?host=de.greenapi.org&chatPort=8443" target="_blank" class="block w-full py-3 rounded-xl bg-emerald-900/55 text-center font-bold text-white border-2 border-emerald-400 hover:bg-emerald-800 transition-all text-xs">Запаска Alt (GreenApi)</a>
+                    <p class="text-[10px] text-gray-300 px-1">(если авто-ссылка не открылась, добавь вручную по гайду ниже)</p>
+                </div>
+
+                <div class="p-4 bg-indigo-900/35 rounded-xl border border-indigo-400/40 text-[10px] text-gray-200 leading-tight space-y-2">
                     <p class="font-black text-green-400 uppercase">Запаска + гайд alt:</p>
                     <p>1. Открой WhatsApp.</p>
                     <p>2. Зайди в Настройки -> Данные и хранилище -> Прокси.</p>
                     <p>3. Нажми Настроить прокси.</p>
-                    <p>4. Введи:<br>
-                    • Адрес прокси: <span class="text-white">de.greenapi.org</span><br>
-                    • Порт сообщений (чат): <span class="text-white">8443</span><br>
-                    • TLS: включить<br>
-                    • Порт медиа: <span class="text-white">8080/7777</span></p>
+                    <p>
+                        4. Введи:<br>
+                        • Адрес прокси: <span class="text-white">de.greenapi.org</span><br>
+                        • Порт сообщений (чат): <span class="text-white">8443</span><br>
+                        • TLS: включить<br>
+                        • Порт медиа: <span class="text-white">8080/7777</span>
+                    </p>
                     <p>5. Нажми Сохранить и включи Использовать прокси.</p>
                 </div>
             </div>
 
             <div class="pt-4 border-t border-white/10 space-y-3">
                 <p class="text-[10px] font-black text-blue-400 uppercase italic">ТГ Прокси:</p>
-                
-                <div class="space-y-4">
-                    
-                    <div class="p-4 bg-blue-600/10 rounded-xl border border-blue-500/30 text-center space-y-3">
-                        <p class="text-[11px] text-gray-200 font-bold leading-tight">
-                            Все прокси теперь на нашем форуме в ветке "Прокси".<br>
-                            <span class="text-blue-300">Там их более 100 штук!</span><br>
-                            Есть прокси, обходящие БС в РФ на мобильной сети.
-                        </p>
-                        <a href="https://t.me/LowiKForum" target="_blank" class="glass block w-full p-3 rounded-xl text-center font-bold text-white hover:bg-white/10 transition-all uppercase text-[10px]">
-                            Перейти на Форум
-                        </a>
-                    </div>
+                <div class="p-4 bg-blue-600/10 rounded-xl border border-blue-500/30 text-center space-y-3">
+                    <p class="text-[11px] text-gray-200 font-bold leading-tight">
+                        Все прокси публикуются в форуме, ветка "Прокси".<br>
+                        <span class="text-blue-300">Скидываем около 400 прокси в месяц.</span><br>
+                        Есть прокси для обхода БС на мобильной сети РФ.
+                    </p>
+                    <a href="https://t.me/LowiKForum" target="_blank" class="glass block w-full p-3 rounded-xl text-center font-bold text-white hover:bg-white/10 transition-all uppercase text-[10px]">
+                        Перейти в ветку Прокси
+                    </a>
+                </div>
 
-                    <div class="space-y-2 pt-2 border-t border-white/5">
-                        <p class="text-[10px] font-black text-purple-400 uppercase italic">Alt способ с прокси залитый на сайте (Beta версия тестовая):</p>
-                        
-                        <p class="text-[10px] text-gray-400 leading-tight">
-                            Тут все прокси из форума. Спасибо за разработку WLRus.
-                        </p>
-
-                        <a href="https://proxyfor.free.nf/" target="_blank" class="block w-full p-3 rounded-xl bg-purple-600/20 border border-purple-500/50 text-xs font-bold text-purple-300 text-center hover:bg-purple-600/30 transition-all uppercase">
-                            🌐 Открыть сайт с прокси для тг (Beta)
-                        </a>
-                        
-                        <p class="text-[9px] text-red-400 italic px-1 text-center font-bold">
-                            ⚠️ Сайт не работает при БС, он немного кривоват!
-                        </p>
-                    </div>
-
+                <div class="space-y-2 pt-2 border-t border-white/5">
+                    <p class="text-[10px] font-black text-purple-400 uppercase italic">Alt способ с прокси залитый на сайте (beta версия тестовая):</p>
+                    <p class="text-[10px] text-gray-400 leading-tight">
+                        Тут все прокси из форума. Спасибо за разработку WLRus.
+                    </p>
+                    <a href="https://proxyfor.free.nf/" target="_blank" class="block w-full p-3 rounded-xl bg-purple-600/20 border border-purple-500/50 text-xs font-bold text-purple-300 text-center hover:bg-purple-600/30 transition-all uppercase">
+                        Открыть сайт с прокси для ТГ (beta)
+                    </a>
+                    <p class="text-[9px] text-red-400 italic px-1 text-center font-bold">
+                        ⚠️ Сайт не работает при БС, он немного кривоват!
+                    </p>
+                    <p class="text-[9px] text-amber-300 italic px-1 text-center font-bold">
+                        Не всегда добавляются актуальные прокси - рекомендуется брать их напрямую в форуме.
+                    </p>
                 </div>
             </div>
         </div>
 
-        <h2 class="section-header italic"><span class="text-blue-400">Обход БС (Бесплатно)</span></h2>
+        <h2 class="section-header italic"><span class="text-blue-400">Обход БС и ЧС (Бесплатно)</span></h2>
         <div class="glass rounded-[2rem] p-6 space-y-4 section-block">
-            <p class="text-[10px] font-black text-white uppercase pl-1 tracking-widest">⭐ Основные версии</p>
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              
-                <div class="space-y-2">
-                   <button onclick="copy('https://raw.githubusercontent.com/LowiKLive/BypassWhitelistRu/refs/heads/main/WhiteList-Bypass_Ru.txt', this)" class="glass w-full p-4 rounded-xl text-[10px] font-bold uppercase text-white shadow-lg border-2 border-blue-500">GitHub (Main)</button>
-                    <a href="https://raw.githubusercontent.com/LowiKLive/BypassWhitelistRu/refs/heads/main/WhiteList-Bypass_Ru.txt" target="_blank" class="block text-center text-[9px] text-blue-300 hover:text-white uppercase font-bold">Основная ссылка</a>
-                </div>
-                <div class="space-y-2">
-                    <button onclick="copy('https://gitverse.ru/api/repos/LowiK/LowiKLive/raw/branch/main/ObhodBSfree.txt', this)" class="glass w-full p-4 rounded-xl text-[10px] font-bold uppercase text-green-400 shadow-lg border-2 border-green-500">GitVerse (Sber / БС)</button>
-                    <a href="https://gitverse.ru/api/repos/LowiK/LowiKLive/raw/branch/main/ObhodBSfree.txt" target="_blank" class="block text-center text-[9px] text-green-300 hover:text-white uppercase font-bold">От Сбера (Для БС и Глушения)</a>
-                </div>
+            <div class="p-4 bg-blue-500/10 rounded-xl border border-blue-400/40 space-y-3 text-center">
+                <p class="text-[11px] text-white font-black uppercase tracking-wide">Актуальные подписки</p>
+                <p class="text-[10px] text-gray-200 leading-tight">
+                    Актуальные и рабочие подписки для ЧС и БС выкладываем в форуме,
+                    ветка "Ключики / подписки для чс и бс".
+                </p>
+                <a href="https://t.me/LowiKForum/107" target="_blank" class="block w-full py-3 rounded-xl bg-blue-600 text-white font-black uppercase text-[10px] border-2 border-blue-300 hover:bg-blue-500 transition-all">
+                    Ключики / подписки для ЧС и БС
+                </a>
             </div>
 
-            <p class="text-[10px] font-black text-gray-400 uppercase pl-1 mt-2 tracking-widest">🛡️ Запасные зеркала</p>
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                <div class="space-y-2">
-                    <button onclick="copy('https://lowik.vercel.app/WhiteList-Bypass_Ru.txt', this)" class="glass w-full p-4 rounded-xl text-[10px] font-bold uppercase text-orange-400 border-2 border-orange-500">Vercel (Alt)</button>
-                    <a href="https://lowik.vercel.app/WhiteList-Bypass_Ru.txt" target="_blank" class="block text-center text-[9px] text-orange-300 hover:text-white uppercase font-bold">Прямая ссылка</a>
-                </div>
-                <div class="space-y-2">
-                    <button onclick="copy('https://gitea.com/LowiK/BypassWhitelistRu/raw/branch/main/WhiteList-Bypass_Ru.txt', this)" class="glass w-full p-4 rounded-xl text-[10px] font-bold uppercase text-teal-400 border-2 border-teal-500">Gitea (Alt)</button>
-                    <a href="https://gitea.com/LowiK/BypassWhitelistRu/raw/branch/main/WhiteList-Bypass_Ru.txt" target="_blank" class="block text-center text-[9px] text-teal-300 hover:text-white uppercase font-bold">Прямая ссылка</a>
-                </div>
-                <div class="space-y-2">
-                    <button onclick="copy('https://codeberg.org/LowiK/BypassWhitelistRu/raw/branch/main/WhiteList-Bypass_Ru.txt', this)" class="glass w-full p-4 rounded-xl text-[10px] font-bold uppercase text-sky-400 border-2 border-sky-500">CodeBerg (Alt)</button>
-                    <a href="https://codeberg.org/LowiK/BypassWhitelistRu/raw/branch/main/WhiteList-Bypass_Ru.txt" target="_blank" class="block text-center text-[9px] text-sky-300 hover:text-white uppercase font-bold">Прямая ссылка</a>
-                </div>
-                <div class="space-y-2">
-                    <button onclick="copy('https://lowik.great-site.net/ObhodBsFreeSub.txt', this)" class="glass w-full p-4 rounded-xl text-[10px] font-bold uppercase text-pink-400 border-2 border-pink-500">InfinityFree (Alt)</button>
-                    <a href="https://lowik.great-site.net/ObhodBsFreeSub.txt" target="_blank" class="block text-center text-[9px] text-pink-300 hover:text-white uppercase font-bold">Прямая ссылка</a>
-                </div>
-            </div>
-
-            <div class="pt-4 border-t border-white/10 mt-2">
-                <p class="text-[10px] font-black text-red-400 uppercase italic text-center mb-3">Плохие версии (не рекомендуется)</p>
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                    <div class="space-y-2">
-                        <button onclick="copy('https://cdn.jsdelivr.net/gh/LowiKLive/BypassWhitelistRu@refs/heads/main/WhiteList-Bypass_Ru.txt', this)" class="glass w-full p-4 rounded-xl text-[10px] font-bold uppercase text-purple-400 border-2 border-purple-500">JsDelivr (Buggy)</button>
-                        <a href="https://cdn.jsdelivr.net/gh/LowiKLive/BypassWhitelistRu@refs/heads/main/WhiteList-Bypass_Ru.txt" target="_blank" class="block text-center text-[9px] text-gray-400 hover:text-white uppercase font-bold">Прямая ссылка</a>
-                    </div>
-                    <div class="space-y-2">
-                        <button onclick="copy('https://cdn.statically.io/gh/LowiKLive/BypassWhitelistRu@c6fff38baec9ed2964524524221cfa2942c29892/WhiteList-Bypass_Ru.txt', this)" class="glass w-full p-4 rounded-xl text-[10px] font-bold uppercase text-red-400 border-2 border-red-500">Statically (Free)</button>
-                        <a href="https://cdn.statically.io/gh/LowiKLive/BypassWhitelistRu@c6fff38baec9ed2964524524221cfa2942c29892/WhiteList-Bypass_Ru.txt" target="_blank" class="block text-center text-[9px] text-gray-400 hover:text-white uppercase font-bold">Прямая ссылка</a>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="p-4 bg-white/5 rounded-xl space-y-2 instruction-block">
-                <p class="text-[10px] font-black text-blue-400 uppercase mb-1">Гайд по добавлению в v2ray:</p>
-                <p class="text-[10px] text-gray-300 leading-tight">Копируем ссылку на подписку -> заходим в клиент -> добавить подписку из буфера обмена/вставить -> делаем тест на скорость нажав на иконку рядом -> выбираем рабочий конфиг при БС (с пингом или галочкой).</p>
-            </div>
-
-            <div class="p-4 bg-blue-500/5 rounded-xl text-[11px] text-gray-400 leading-tight instruction-block">
-                <strong class="text-blue-300 uppercase text-[10px] block mb-1">Рекомендуемый софт:</strong>
-                Android: GoldV2ray, Karing, Happ, Exclave <br>
-                iOS: Karing, Streisand, Happ, V2box <br>
-                PC: <b>Happ</b>, Karing, Nekobox, V2rayN
-            </div>
-        
-            <div class="text-[10px] text-gray-500 italic border-l-2 border-red-500/30 pl-3">
-                ⚠️ <b>Правила:</b> Желательно отключаться, когда не пользуетесь.
-                Торренты можно использовать только на специальных серверах только в подписке BaZaRu VPN. Трафик желательно до 100гб/мес.
-                <b>Конфиги не воровать и названия не менять!</b>
+            <div class="p-4 bg-purple-500/10 rounded-xl border border-purple-400/35 text-center space-y-2">
+                <p class="text-[10px] font-black text-purple-300 uppercase">Гайды и софт</p>
+                <p class="text-[10px] text-gray-300 leading-tight">
+                    В форуме в ветке "Файлы программ" уже есть нужные файлы и приложения.
+                    Если что - подскажем.
+                </p>
+                <p class="text-[10px] text-blue-200 leading-tight">
+                    Там есть не только клиенты v2ray, но и много других инструментов для обхода блокировок.
+                </p>
+                <p class="text-[10px] text-purple-200 leading-tight border-t border-purple-300/30 pt-2">
+                    Быстрый гайд: копируешь ссылку подписки -> открываешь клиент -> добавить подписку из буфера/вставкой -> запускаешь тест -> выбираешь рабочий конфиг.
+                </p>
+                <a href="https://t.me/LowiKForum" target="_blank" class="block w-full py-3 rounded-xl bg-purple-600/30 text-purple-100 font-bold uppercase text-[10px] border border-purple-400/60 hover:bg-purple-600/40 transition-all">
+                    Форум - Файлы программ
+                </a>
             </div>
         </div>
 
         <h2 class="section-header italic"><span class="text-orange-400">Платные подписки & Покупка</span></h2>
-        <div class="glass rounded-[2rem] p-6 space-y-6 section-block">
-            <p class="text-center text-[10px] font-bold text-orange-300 uppercase tracking-widest -mb-4">Платные подписки продаются 1 раз и навсегда</p>
+        <div class="glass rounded-[2rem] p-6 space-y-5 section-block">
+            <p class="text-center text-[10px] font-bold text-orange-300 uppercase tracking-widest">Платные подписки продаются 1 раз и навсегда</p>
+
             <div class="grid grid-cols-2 gap-3">
-                <div class="p-4 rounded-2xl bg-orange-600/20 text-center section-block border-2 border-orange-500">
+                <div class="price-tile bg-orange-600/20 border-orange-400/70">
                     <p class="text-[9px] font-black uppercase text-orange-400">VIP Обход БС</p>
                     <p class="text-2xl font-black text-white">300₽</p>
-                    <p class="text-[9px] text-orange-200 mt-2 font-bold leading-tight">Платные быстрые и рабочие сервера для обхода бс покупные (из платных подписок); не гарантируется низкий пинг для игр!</p>
+                    <p class="text-[9px] text-orange-200 mt-2 font-bold leading-tight">Быстрые и рабочие сервера для обхода БС. Низкий пинг для игр не гарантируется.</p>
                 </div>
-                <div class="p-4 rounded-2xl bg-purple-600/20 text-center section-block border-2 border-purple-500">
-                    <p class="text-[9px] font-black uppercase text-purple-400">BaZaRu VPN</p>
+
+                <div class="price-tile bg-purple-600/20 border-purple-400/70">
+                    <p class="text-[9px] font-black uppercase text-purple-300">BaZaRu VPN</p>
                     <p class="text-2xl font-black text-white">125₽</p>
-                    <p class="text-[9px] text-purple-200 mt-2 font-bold leading-tight">это обычный впн для ЧС/Wifi (Не для БС)</p>
+                    <p class="text-[9px] text-purple-200 mt-2 font-bold leading-tight">Обычный VPN для ЧС / WiFi. Не для БС.</p>
                 </div>
             </div>
 
-            <p class="text-center text-[10px] font-black text-yellow-400 uppercase tracking-widest -my-2">⭐ Рекомендуются к покупке ⭐</p>
+            <div class="p-4 rounded-xl bg-indigo-950/45 border border-indigo-400/50 text-[10px] text-gray-200 leading-relaxed">
+                <p class="font-black text-yellow-300 uppercase mb-1">Правила:</p>
+                <p>Желательно отключаться, когда не пользуетесь. Торренты можно использовать только на специальных серверах только в подписке BaZaRu VPN. Трафик желательно до 100 гб/мес. <span class="text-red-300 font-bold">Конфиги не воровать и названия не менять!</span></p>
+            </div>
 
             <div class="p-4 rounded-2xl bg-indigo-600/20 text-center section-block border-2 border-indigo-500">
                 <p class="text-[9px] font-black uppercase text-indigo-400">PC-Boost (Настройка Win 10/11)</p>
                 <p class="text-2xl font-black text-white my-1">125₽</p>
                 <div class="text-[10px] text-gray-200 space-y-1 italic mt-2 text-center">
-                    <p>⚡ Полная оптимизация системы для игр и работы</p>
-                    <p>📦 Пакет всех необходимых базовых программ</p>
-                    <p>🛡️ Рабочие VPN и методы обхода блокировок</p>
-                    <p class="text-gray-400 font-bold uppercase mt-1">Все в одном архиве на 1 человека</p>
+                    <p>Полная оптимизация системы для игр и работы</p>
+                    <p>Пакет базовых программ</p>
+                    <p>Рабочие VPN и методы обхода блокировок</p>
                 </div>
             </div>
 
             <div class="bg-white/10 p-5 rounded-3xl space-y-4 border-2 border-orange-400">
                 <p class="text-xs font-black text-center text-orange-400 uppercase tracking-widest">Как приобрести?</p>
                 <ul class="text-[11px] space-y-3 text-gray-200 font-bold">
-                    <li>💬 Пиши в форум/чат "Хочу купить" — напишу в ЛС.</li>
-                    <li>⭐️ Звёзды под последним постом (1 руб = 1 звезда).</li>
-                    <li>🎁 Подарок ТГ Премиум (минимум на месяц).</li>
+                    <li>Пиши в форум/чат "Хочу купить" - напишу в ЛС.</li>
+                    <li>Звезды под последним постом (1 руб = 1 звезда).</li>
+                    <li>Подарок ТГ Премиум (минимум на месяц).</li>
                 </ul>
-                <div class="space-y-2 pt-2">
-                    <a href="https://www.donationalerts.com/r/lowik_skrr" target="_blank" class="block w-full py-4 rounded-2xl bg-gradient-to-r from-orange-500 to-orange-600 text-black text-center font-black text-[12px] uppercase shadow-2xl border-2 border-white hover:scale-[1.05] transition-all">Поддержать (DonationAlerts)</a>
-                    <p class="text-[9px] text-orange-400 font-bold text-center uppercase">⚠️ В донате обязательно укажите свой ЮЗ (UserName) в ТГ!</p>
-                </div>
             </div>
 
             <div class="p-4 bg-red-900/30 rounded-xl border-2 border-red-500">
-                <p class="text-[10px] font-bold text-red-400 uppercase mb-2"><strong>Строгие условия (правила):</strong></p>
+                <p class="text-[10px] font-bold text-red-400 uppercase mb-2">Строгие условия:</p>
                 <ul class="text-[10px] text-gray-300 space-y-1 list-disc pl-4 font-medium">
-                    <li>Не распространять в открытом виде (не сливать) и не перепродавать.</li>
-                    <li>Использовать только на 1 устройстве одновременно (за остальные отдельно доплачивать).</li>
-                    <li>На Vip обходке БС скачивание торрентов; игр и крупных файлов запрещено.</li>
-                    <li>В Bazaru VPN (Для чс/wifi) скачивание торрентов разрешено только на спец серверах!</li>
-                    <li>Работают только в приложении (клиенте) <strong>Happ</strong>.</li>
+                    <li>Не распространять в открытом виде и не перепродавать.</li>
+                    <li>Использовать только на 1 устройстве одновременно.</li>
+                    <li>На VIP обходке БС торренты, игры и крупные файлы запрещены.</li>
+                    <li>В BaZaRu VPN торренты разрешены только на спец серверах.</li>
+                    <li>Работают только в приложении Happ.</li>
                 </ul>
             </div>
         </div>
@@ -350,48 +428,21 @@
             <div class="space-y-4">
                 <p class="text-sm font-bold text-white">Вопросы и сотрудничество: <a href="mailto:sotrudnichestvo.lowikskrr@gmail.com" class="text-blue-400 underline">sotrudnichestvo.lowikskrr@gmail.com</a></p>
                 <p class="text-[10px] text-gray-400 max-w-sm mx-auto leading-relaxed px-4 text-center">
-                    Поддержка за разработку модов, ведение тгк и тд (обходы, полезные приложения).
-                    <br>
-                    Бесплатная подписка держится на вашем активе!
+                    Поддержка за разработку модов, ведение тгк и тд (обходы, полезные приложения):
                 </p>
-                <p class="text-[11px] text-gray-300 font-bold uppercase underline">
-                    <a href="https://t.me/LowiKLiveChat" target="_blank" class="hover:text-blue-400 transition-colors">Наш чат (резерв)</a>
-                </p>
-            </div>
-            
-            <div class="pt-8 border-t border-white/20 text-[11px] text-gray-500 uppercase tracking-widest space-y-1 text-center font-bold">
-                <p>Автор: <span class="text-gray-300">LowiK</span></p>
-                <p>Сайт разработали: <span class="text-blue-500">Dplus, LowiKLive и ИИ</span></p>
-                <p>Прокси: <span class="text-gray-400">GreenApi, AstraCat</span></p>
-                <p class="pt-4 text-[9px] normal-case italic font-medium">Беру конфиги из открытых источников - гитхаб подписки (EtoNeYa, GoodByeWL, WLrus и др), пробные/платные подписки!</p>
+
+                <div class="glass rounded-2xl p-4 max-w-sm mx-auto">
+                    <p class="text-[10px] text-gray-300 font-black uppercase tracking-wider">DonationAlerts</p>
+                    <p class="text-[10px] text-red-400 font-bold mt-1">Временно недоступен</p>
+                </div>
             </div>
         </footer>
-
     </div>
 
     <script>
-        function copy(text, btn) {
-            const original = btn.innerHTML;
-            if (navigator.clipboard && window.isSecureContext) {
-                navigator.clipboard.writeText(text).then(() => {
-                    btn.innerHTML = '<span class="text-green-400 font-black">СКОПИРОВАНО!</span>';
-                    setTimeout(() => { btn.innerHTML = original; }, 1500);
-                }).catch(() => fallbackCopy(text, btn, original));
-            } else {
-                fallbackCopy(text, btn, original);
-            }
-        }
-
-        function fallbackCopy(text, btn, original) {
-            const el = document.createElement('textarea');
-            el.value = text;
-            document.body.appendChild(el);
-            el.select();
-            document.execCommand('copy');
-            document.body.removeChild(el);
-            btn.innerHTML = '<span class="text-green-400 font-black">СКОПИРОВАНО!</span>';
-            setTimeout(() => { btn.innerHTML = original; }, 1500);
-        }
+        document.querySelectorAll('a[target="_blank"]').forEach((link) => {
+            link.rel = 'noopener noreferrer';
+        });
     </script>
 </body>
 </html>
