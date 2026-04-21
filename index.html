@@ -14,7 +14,8 @@
                 radial-gradient(at 0% 0%, #1e3a8a 0px, transparent 50%),
                 radial-gradient(at 100% 100%, #581c87 0px, transparent 50%),
                 radial-gradient(at 50% 0%, #312e81 0px, transparent 50%),
-                radial-gradient(at 30% 80%, rgba(45, 212, 191, 0.22) 0px, transparent 45%);
+                radial-gradient(at 30% 80%, rgba(45, 212, 191, 0.22) 0px, transparent 45%),
+                linear-gradient(160deg, rgba(15, 23, 42, 0.65), rgba(30, 41, 59, 0.22));
             background-attachment: fixed;
             color: #f3f4f6;
             min-height: 100vh;
@@ -27,10 +28,10 @@
 
         .glass, .section-block, .instruction-block {
             border: 2px solid rgba(255, 255, 255, 0.45) !important;
-            background: rgba(255, 255, 255, 0.08);
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.06));
             backdrop-filter: blur(20px) saturate(160%);
             -webkit-backdrop-filter: blur(20px) saturate(160%);
-            box-shadow: 0 10px 30px 0 rgba(0, 0, 0, 0.5);
+            box-shadow: 0 14px 34px 0 rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.13);
             position: relative;
         }
 
@@ -71,22 +72,23 @@
         }
 
         .btn-tg {
-            background: #0088cc !important;
+            background: linear-gradient(90deg, #0284c7, #0ea5e9) !important;
             border: 2px solid #fff !important;
-            box-shadow: 0 0 25px rgba(0, 136, 204, 0.6);
+            box-shadow: 0 0 25px rgba(2, 132, 199, 0.45);
             transition: 0.3s;
         }
 
         .btn-yt {
-            background: #ff0000 !important;
+            background: linear-gradient(90deg, #dc2626, #ef4444) !important;
             border: 2px solid #fff !important;
-            box-shadow: 0 0 25px rgba(255, 0, 0, 0.6);
+            box-shadow: 0 0 25px rgba(220, 38, 38, 0.45);
             transition: 0.3s;
         }
 
         .btn-tg:hover,
         .btn-yt:hover {
             transform: scale(1.04);
+            filter: brightness(1.06);
         }
 
         .btn-tools {
@@ -195,13 +197,101 @@
 
         .status-warning {
             border: 1px solid rgba(251, 191, 36, 0.45);
-            background: rgba(251, 191, 36, 0.08);
+            background: linear-gradient(90deg, rgba(251, 191, 36, 0.12), rgba(245, 158, 11, 0.08));
             color: #fde68a;
         }
 
         .soft-divider {
             height: 1px;
             background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.28), transparent);
+        }
+
+        .tab-btn {
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            background: rgba(255, 255, 255, 0.08);
+            color: #dbeafe;
+            font-size: 10px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            border-radius: 10px;
+            padding: 8px 10px;
+            transition: all 0.2s ease;
+        }
+
+        .tab-btn.active {
+            background: linear-gradient(90deg, rgba(59, 130, 246, 0.35), rgba(124, 58, 237, 0.35));
+            border-color: rgba(255, 255, 255, 0.55);
+            color: #ffffff;
+        }
+
+        .wallet-row {
+            border: 1px solid rgba(255, 255, 255, 0.16);
+            background: rgba(15, 23, 42, 0.5);
+            border-radius: 12px;
+            padding: 9px;
+        }
+
+        .copy-btn {
+            border: 1px solid rgba(59, 130, 246, 0.6);
+            background: rgba(37, 99, 235, 0.25);
+            color: #dbeafe;
+            border-radius: 8px;
+            font-size: 9px;
+            font-weight: 800;
+            padding: 5px 7px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            transition: all 0.2s ease;
+        }
+
+        .copy-btn:hover {
+            background: rgba(37, 99, 235, 0.4);
+        }
+
+        .donate-chip {
+            border: 1px solid rgba(244, 114, 182, 0.35);
+            background: rgba(236, 72, 153, 0.12);
+            color: #fbcfe8;
+        }
+
+        .donate-tab {
+            animation: fadeIn 0.25s ease;
+        }
+
+        .other-title {
+            font-size: 12px;
+            font-weight: 900;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: #f0abfc;
+        }
+
+        .other-label {
+            font-size: 11px;
+            font-weight: 900;
+            color: #ffffff;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+        }
+
+        .other-status {
+            font-size: 11px;
+            font-weight: 900;
+            color: #fca5a5;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(4px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
     </style>
 </head>
@@ -427,14 +517,130 @@
         <footer class="mt-20 text-center space-y-8 pb-10">
             <div class="space-y-4">
                 <p class="text-sm font-bold text-white">Вопросы и сотрудничество: <a href="mailto:sotrudnichestvo.lowikskrr@gmail.com" class="text-blue-400 underline">sotrudnichestvo.lowikskrr@gmail.com</a></p>
-                <p class="text-[10px] text-gray-400 max-w-sm mx-auto leading-relaxed px-4 text-center">
-                    Поддержка за разработку модов, ведение тгк и тд (обходы, полезные приложения):
-                </p>
+                <div class="glass rounded-2xl p-4 max-w-[460px] mx-auto text-left">
+                    <p class="text-[10px] text-gray-300 leading-relaxed px-1 mb-4 text-center font-bold">
+                        Поддержка за разработку модов, ведение тгк, проекты, тулзы и другое (обходы, полезные приложения и сервисы):
+                    </p>
 
-                <div class="glass rounded-2xl p-4 max-w-sm mx-auto">
-                    <p class="text-[10px] text-gray-300 font-black uppercase tracking-wider">DonationAlerts</p>
-                    <p class="text-[10px] text-red-400 font-bold mt-1">Временно недоступен</p>
+                    <div class="grid grid-cols-2 gap-2 mb-4">
+                        <button class="tab-btn active" data-tab="tab-crypto" type="button">Криптой</button>
+                        <button class="tab-btn" data-tab="tab-other" type="button">Другие способы</button>
+                    </div>
+
+                    <div id="tab-crypto" class="donate-tab space-y-2">
+                        <div class="wallet-row">
+                            <p class="text-[9px] text-emerald-200 leading-tight font-bold">
+                                Оптимальные с самой мелкой комиссией (и удобные для постоянных переводов): TON, SOL (Solana) и LTC.
+                            </p>
+                        </div>
+
+                        <div class="wallet-row flex items-start justify-between gap-3">
+                            <div>
+                                <p class="text-[10px] font-bold text-white">TON</p>
+                                <p class="text-[9px] text-gray-300 break-all">UQCTBsRIss5IzbY9qmFS8DcZ48q1IFOXpRv4PxTZ9PKzNNxn</p>
+                            </div>
+                            <button class="copy-btn" type="button" data-copy="UQCTBsRIss5IzbY9qmFS8DcZ48q1IFOXpRv4PxTZ9PKzNNxn">copy</button>
+                        </div>
+
+                        <div class="wallet-row flex items-start justify-between gap-3">
+                            <div>
+                                <p class="text-[10px] font-bold text-white">BTC</p>
+                                <p class="text-[9px] text-gray-300 break-all">bc1q8z99rxahskjqxxnw3adgcewkk57djw7hquenwt</p>
+                            </div>
+                            <button class="copy-btn" type="button" data-copy="bc1q8z99rxahskjqxxnw3adgcewkk57djw7hquenwt">copy</button>
+                        </div>
+
+                        <div class="wallet-row flex items-start justify-between gap-3">
+                            <div>
+                                <p class="text-[10px] font-bold text-white">ETH</p>
+                                <p class="text-[9px] text-gray-300 break-all">0x60549fc3c7b8ac18aD1DaBbb9b6bA0c2D7111137</p>
+                            </div>
+                            <button class="copy-btn" type="button" data-copy="0x60549fc3c7b8ac18aD1DaBbb9b6bA0c2D7111137">copy</button>
+                        </div>
+
+                        <div class="wallet-row flex items-start justify-between gap-3">
+                            <div>
+                                <p class="text-[10px] font-bold text-white">USDT (TON)</p>
+                                <p class="text-[9px] text-gray-300 break-all">UQCTBsRIss5IzbY9qmFS8DcZ48q1IFOXpRv4PxTZ9PKzNNxn</p>
+                            </div>
+                            <button class="copy-btn" type="button" data-copy="UQCTBsRIss5IzbY9qmFS8DcZ48q1IFOXpRv4PxTZ9PKzNNxn">copy</button>
+                        </div>
+
+                        <div class="wallet-row flex items-start justify-between gap-3">
+                            <div>
+                                <p class="text-[10px] font-bold text-white">SOL</p>
+                                <p class="text-[9px] text-gray-300 break-all">28RM2bzmQSE5q45hQJxh8y1bnSyBzJBxEEFejAWZhuHaTRX</p>
+                            </div>
+                            <button class="copy-btn" type="button" data-copy="28RM2bzmQSE5q45hQJxh8y1bnSyBzJBxEEFejAWZhuHaTRX">copy</button>
+                        </div>
+
+                        <div class="wallet-row flex items-start justify-between gap-3">
+                            <div>
+                                <p class="text-[10px] font-bold text-white">TRX Tron (TRC20)</p>
+                                <p class="text-[9px] text-gray-300 break-all">TP7nBPMRrRcYZ6avk5gCoinArRy59bPP7P</p>
+                            </div>
+                            <button class="copy-btn" type="button" data-copy="TP7nBPMRrRcYZ6avk5gCoinArRy59bPP7P">copy</button>
+                        </div>
+
+                        <div class="wallet-row flex items-start justify-between gap-3">
+                            <div>
+                                <p class="text-[10px] font-bold text-white">GRAM</p>
+                                <p class="text-[9px] text-gray-300 break-all">UQCTBsRIss5IzbY9qmFS8DcZ48q1IFOXpRv4PxTZ9PKzNNxn</p>
+                            </div>
+                            <button class="copy-btn" type="button" data-copy="UQCTBsRIss5IzbY9qmFS8DcZ48q1IFOXpRv4PxTZ9PKzNNxn">copy</button>
+                        </div>
+
+                        <div class="wallet-row flex items-start justify-between gap-3">
+                            <div>
+                                <p class="text-[10px] font-bold text-white">DOGE</p>
+                                <p class="text-[9px] text-gray-300 break-all">D5LP5Z6ALnT2noQeewffhLUJS6dwioPi9d</p>
+                            </div>
+                            <button class="copy-btn" type="button" data-copy="D5LP5Z6ALnT2noQeewffhLUJS6dwioPi9d">copy</button>
+                        </div>
+
+                        <div class="wallet-row flex items-start justify-between gap-3">
+                            <div>
+                                <p class="text-[10px] font-bold text-white">LTC</p>
+                                <p class="text-[9px] text-gray-300 break-all">ltc1qdnrvd5nxzggfmkf5c5khcfspk06pqmfup97j3s</p>
+                            </div>
+                            <button class="copy-btn" type="button" data-copy="ltc1qdnrvd5nxzggfmkf5c5khcfspk06pqmfup97j3s">copy</button>
+                        </div>
+
+                        <div class="wallet-row flex items-start justify-between gap-3">
+                            <div>
+                                <p class="text-[10px] font-bold text-white">BNB</p>
+                                <p class="text-[9px] text-gray-300 break-all">0x60549fc3c7b8ac18aD1DaBbb9b6bA0c2D7111137</p>
+                            </div>
+                            <button class="copy-btn" type="button" data-copy="0x60549fc3c7b8ac18aD1DaBbb9b6bA0c2D7111137">copy</button>
+                        </div>
+
+                        <div class="wallet-row flex items-start justify-between gap-3">
+                            <div>
+                                <p class="text-[10px] font-bold text-white">USDC (BEP20)</p>
+                                <p class="text-[9px] text-gray-300 break-all">0x60549fc3c7b8ac18aD1DaBbb9b6bA0c2D7111137</p>
+                            </div>
+                            <button class="copy-btn" type="button" data-copy="0x60549fc3c7b8ac18aD1DaBbb9b6bA0c2D7111137">copy</button>
+                        </div>
+                    </div>
+
+                    <div id="tab-other" class="donate-tab hidden space-y-3 text-left">
+                        <p class="other-title">Другие способы</p>
+                        <div class="wallet-row">
+                            <p class="other-label">Telegram Stars</p>
+                            <p class="text-[9px] text-gray-300 leading-tight mt-1">
+                                Можно просто закинуть звезды под посты в ТГК
+                                <a href="https://t.me/LowiK_Live" target="_blank" class="text-blue-300 underline">@LowiK_Live</a>.
+                            </p>
+                        </div>
+                        <div class="wallet-row">
+                            <p class="other-label">Donation Allerts - DA (резерв)</p>
+                            <p class="other-status mt-1">Временно недоступен</p>
+                            <p class="text-[9px] text-gray-500 mt-1">Резервная ссылка:</p>
+                            <a href="https://www.donationalerts.com/r/lowik_skrr" target="_blank" class="text-[9px] text-gray-400 underline break-all">https://www.donationalerts.com/r/lowik_skrr</a>
+                        </div>
+                    </div>
                 </div>
+
             </div>
         </footer>
     </div>
@@ -442,6 +648,50 @@
     <script>
         document.querySelectorAll('a[target="_blank"]').forEach((link) => {
             link.rel = 'noopener noreferrer';
+        });
+
+        const tabButtons = document.querySelectorAll('.tab-btn');
+        const tabPanels = document.querySelectorAll('.donate-tab');
+
+        tabButtons.forEach((btn) => {
+            btn.addEventListener('click', () => {
+                const target = btn.getAttribute('data-tab');
+                tabButtons.forEach((b) => b.classList.remove('active'));
+                tabPanels.forEach((panel) => panel.classList.add('hidden'));
+                btn.classList.add('active');
+                document.getElementById(target).classList.remove('hidden');
+            });
+        });
+
+        function copyText(text, button) {
+            if (navigator.clipboard && window.isSecureContext) {
+                navigator.clipboard.writeText(text).then(() => {
+                    const previous = button.textContent;
+                    button.textContent = 'copied';
+                    setTimeout(() => {
+                        button.textContent = previous;
+                    }, 1200);
+                });
+                return;
+            }
+
+            const temp = document.createElement('textarea');
+            temp.value = text;
+            document.body.appendChild(temp);
+            temp.select();
+            document.execCommand('copy');
+            document.body.removeChild(temp);
+            const previous = button.textContent;
+            button.textContent = 'copied';
+            setTimeout(() => {
+                button.textContent = previous;
+            }, 1200);
+        }
+
+        document.querySelectorAll('[data-copy]').forEach((btn) => {
+            btn.addEventListener('click', () => {
+                copyText(btn.getAttribute('data-copy'), btn);
+            });
         });
     </script>
 </body>
