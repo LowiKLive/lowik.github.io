@@ -1,2 +1,2 @@
 # lowik.github.io
-мой сайт для vercel alt
+мой сайт vercel alt
